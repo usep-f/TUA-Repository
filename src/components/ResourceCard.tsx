@@ -77,13 +77,13 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
       id={`work-card-${work.id}`}
     >
       {/* Top Header Card Strip */}
-      <div className="bg-slate-950/90 backdrop-blur-md px-5 py-3 text-white flex items-center justify-between gap-3 border-b border-white/10">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className={`px-2.5 py-0.5 rounded-md text-xs font-bold border flex items-center gap-1.5 shadow-xs ${getOutputBadgeStyle(work.outputType)}`}>
+      <div className="bg-slate-950/90 backdrop-blur-md px-6 py-3.5 text-white flex items-center justify-between gap-3 border-b border-white/10">
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <span className={`px-3 py-1 rounded-md text-xs font-bold border flex items-center gap-1.5 shadow-xs ${getOutputBadgeStyle(work.outputType)}`}>
             <Stethoscope className="w-3.5 h-3.5" />
             {work.outputType}
           </span>
-          <span className="text-xs text-amber-300 font-bold bg-amber-400/15 px-2 py-0.5 rounded border border-amber-400/30 backdrop-blur-xs">
+          <span className="text-xs text-amber-300 font-bold bg-amber-400/15 px-2.5 py-1 rounded border border-amber-400/30 backdrop-blur-xs">
             {work.batch}
           </span>
           <span className="text-xs text-slate-300 hidden sm:inline">
@@ -93,7 +93,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
 
         <button
           onClick={() => onToggleSave(work.id)}
-          className={`p-1.5 rounded-lg transition-colors ${
+          className={`p-2 rounded-lg transition-colors ${
             isSaved 
               ? 'text-amber-300 bg-amber-400/20 border border-amber-400/40' 
               : 'text-slate-300 hover:text-amber-300 hover:bg-white/10'
@@ -106,20 +106,20 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
       </div>
 
       {/* Main Content Body */}
-      <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+      <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-5">
         <div>
           {/* Title */}
           <h3 
             onClick={() => onOpenDetails(work)}
-            className="text-base sm:text-lg font-bold text-blue-950 hover:text-blue-700 cursor-pointer transition-colors leading-snug line-clamp-2"
+            className="text-base sm:text-lg lg:text-xl font-bold text-blue-950 hover:text-blue-700 cursor-pointer transition-colors leading-snug line-clamp-2"
           >
             {work.title}
           </h3>
 
           {/* Authors & Core Meta (Matching PDF page 3) */}
-          <div className="mt-2.5 space-y-1 text-xs text-slate-600">
-            <p className="flex items-center gap-1.5 font-medium text-slate-800">
-              <User className="w-3.5 h-3.5 text-blue-900 shrink-0" />
+          <div className="mt-3 space-y-1.5 text-xs sm:text-sm text-slate-600">
+            <p className="flex items-center gap-2 font-medium text-slate-800">
+              <User className="w-4 h-4 text-blue-900 shrink-0" />
               <span>
                 <strong>Authors:</strong> {work.authors.join(', ')}
               </span>
@@ -134,44 +134,44 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           </div>
 
           {/* Condition / Clinical Area Highlight */}
-          <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            <span className="text-[11px] font-semibold text-blue-950 bg-blue-50/80 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-blue-200/80">
+          <div className="mt-3.5 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-semibold text-blue-950 bg-blue-50/90 backdrop-blur-xs px-3 py-1 rounded-md border border-blue-200/80">
               Condition: {work.condition}
             </span>
-            <span className="text-[11px] font-semibold text-slate-700 bg-slate-100/80 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-slate-200/60">
+            <span className="text-xs font-semibold text-slate-700 bg-slate-100/90 backdrop-blur-xs px-3 py-1 rounded-md border border-slate-200/60">
               {work.clinicalArea}
             </span>
             {work.methodology && (
-              <span className="text-[11px] font-medium text-slate-600 bg-white/70 backdrop-blur-xs px-2.5 py-0.5 rounded-md border border-slate-200">
+              <span className="text-xs font-medium text-slate-600 bg-white/80 backdrop-blur-xs px-3 py-1 rounded-md border border-slate-200">
                 {work.methodology}
               </span>
             )}
           </div>
 
           {/* Keywords tags */}
-          <div className="mt-2.5 flex flex-wrap gap-1">
-            {work.keywords.slice(0, 4).map((kw, i) => (
-              <span key={i} className="text-[10px] text-slate-600 bg-white/80 backdrop-blur-xs px-2 py-0.5 rounded border border-slate-200/80">
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {work.keywords.slice(0, 5).map((kw, i) => (
+              <span key={i} className="text-[11px] text-slate-600 bg-white/90 backdrop-blur-xs px-2.5 py-0.5 rounded border border-slate-200/80">
                 #{kw}
               </span>
             ))}
-            {work.keywords.length > 4 && (
-              <span className="text-[10px] text-slate-500 px-1 py-0.5">
-                +{work.keywords.length - 4} more
+            {work.keywords.length > 5 && (
+              <span className="text-[11px] text-slate-500 px-1 py-0.5">
+                +{work.keywords.length - 5} more
               </span>
             )}
           </div>
 
           {/* Collapsible Abstract Preview */}
           {abstractExpanded && (
-            <div className="mt-3 p-3.5 rounded-xl bg-white/80 backdrop-blur-md border border-slate-200/80 text-xs text-slate-700 leading-relaxed space-y-2 animate-fadeIn shadow-xs">
-              <p className="font-semibold text-blue-950 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+            <div className="mt-4 p-4 sm:p-5 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 text-xs sm:text-sm text-slate-700 leading-relaxed space-y-2.5 animate-fadeIn shadow-xs">
+              <p className="font-semibold text-blue-950 flex items-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-amber-600" />
                 Structured Abstract:
               </p>
               <p>{work.abstract}</p>
               {work.clinicalSummary.nursingDiagnoses.length > 0 && (
-                <div className="pt-2 border-t border-slate-200">
+                <div className="pt-2.5 border-t border-slate-200">
                   <p className="font-semibold text-slate-800 mb-1">Key Nursing Diagnosis:</p>
                   <p className="italic text-slate-600 line-clamp-2">
                     "{work.clinicalSummary.nursingDiagnoses[0]}"
@@ -183,10 +183,10 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         </div>
 
         {/* Physical Library Shelf Info */}
-        <div className="pt-3 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
-          <div className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-amber-600" />
-            <span className="font-mono text-[11px] text-slate-700 font-medium">
+        <div className="pt-4 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2.5 text-xs sm:text-sm text-slate-500">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-amber-600" />
+            <span className="font-mono text-xs text-slate-700 font-semibold">
               {work.physicalLibrary.callNumber}
             </span>
           </div>
@@ -195,43 +195,46 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           </div>
         </div>
 
-        {/* Action Buttons Toolbar directly matching PDF specification:
-            [View Abstract] [Read Online] [Download PDF] [Cite] */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1">
+        {/* Action Buttons Toolbar: [View] [Read] [Download] [Cite] */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1.5">
           <button
             onClick={() => setAbstractExpanded(!abstractExpanded)}
             id={`btn-abstract-${work.id}`}
-            className="flex items-center justify-center gap-1 px-2.5 py-2 rounded-xl bg-white/80 hover:bg-white text-slate-700 text-xs font-semibold border border-slate-200/80 transition-all shadow-xs"
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/90 hover:bg-white text-slate-700 text-xs font-semibold border border-slate-200/80 transition-all shadow-xs"
+            title={abstractExpanded ? 'Hide Abstract' : 'View Abstract'}
           >
-            <span>{abstractExpanded ? 'Hide Abstract' : 'View Abstract'}</span>
+            <span>{abstractExpanded ? 'Hide' : 'View'}</span>
             {abstractExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </button>
 
           <button
             onClick={() => onOpenReader(work)}
             id={`btn-read-${work.id}`}
-            className="flex items-center justify-center gap-1 px-2.5 py-2 rounded-xl bg-blue-900/90 hover:bg-blue-900 text-amber-300 text-xs font-semibold transition-all shadow-xs border border-blue-800/80"
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-blue-900/95 hover:bg-blue-900 text-amber-300 text-xs font-semibold transition-all shadow-xs border border-blue-800/80"
+            title="Read Online"
           >
             <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-            <span>Read Online</span>
+            <span>Read</span>
           </button>
 
           <button
             onClick={() => onDownloadPDF(work)}
             id={`btn-download-${work.id}`}
-            className="flex items-center justify-center gap-1 px-2.5 py-2 rounded-xl bg-white/70 hover:bg-white border border-slate-200/90 text-slate-700 text-xs font-semibold transition-all"
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/80 hover:bg-white border border-slate-200/90 text-slate-700 text-xs font-semibold transition-all"
+            title="Download PDF"
           >
             <Download className="w-3.5 h-3.5 text-blue-900" />
-            <span>Download PDF</span>
+            <span>Download</span>
           </button>
 
           <button
             onClick={() => onOpenCite(work)}
             id={`btn-cite-${work.id}`}
-            className="flex items-center justify-center gap-1 px-2.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-blue-950 text-xs font-bold transition-all shadow-xs border border-amber-300/60"
+            className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-blue-950 text-xs font-bold transition-all shadow-xs border border-amber-300/60"
+            title="Cite Work"
           >
             <Quote className="w-3.5 h-3.5 text-blue-950 fill-blue-950/20" />
-            <span>Cite Work</span>
+            <span>Cite</span>
           </button>
         </div>
       </div>

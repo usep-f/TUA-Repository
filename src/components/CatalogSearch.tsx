@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ScholarlyWork, SearchFilters, PowerSearchParams, OutputType, MethodologyType } from '../types';
 import { ResourceCard } from './ResourceCard';
 import { 
@@ -18,6 +18,8 @@ import {
   Stethoscope,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Flame
 } from 'lucide-react';
 
@@ -102,6 +104,10 @@ export const CatalogSearch: React.FC<CatalogSearchProps> = ({
   );
   const [selectedShelfStatus, setSelectedShelfStatus] = useState<string>('ALL');
   const [sortBy, setSortBy] = useState<'relevance' | 'year-desc' | 'citations-desc' | 'title-asc'>('relevance');
+
+  // Pagination State (5 cards per page)
+  const ITEMS_PER_PAGE = 5;
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Power Search State (Matching PDF page 2)
   const [powerParams, setPowerParams] = useState<PowerSearchParams>({
@@ -230,12 +236,24 @@ export const CatalogSearch: React.FC<CatalogSearchProps> = ({
     });
   }, [works, searchMode, basicQuery, selectedOutputTypes, selectedSpecialties, selectedBatches, selectedConditions, selectedShelfStatus, sortBy, powerParams]);
 
+  // Reset pagination to page 1 whenever filters or query change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [basicQuery, searchMode, selectedOutputTypes, selectedSpecialties, selectedBatches, selectedConditions, selectedShelfStatus, sortBy, powerParams]);
+
+  // Pagination Calculations (Dynamic page added for every 5 cards)
+  const totalPages = Math.max(1, Math.ceil(filteredWorks.length / ITEMS_PER_PAGE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredWorks.length);
+  const paginatedWorks = filteredWorks.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   const activeFiltersCount = selectedOutputTypes.length + selectedSpecialties.length + selectedBatches.length + selectedConditions.length + (selectedShelfStatus !== 'ALL' ? 1 : 0);
 
   return (
-    <div className="space-y-6 pb-16">
+    <div className="w-full max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 pt-6 pb-16 space-y-6 flex-1 relative">
       {/* Top Search Controls Bar with Frosted Glass Panel */}
-      <div className="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+      <div className="glass-panel !bg-[#ffffff] rounded-2xl p-4 sm:p-6 space-y-4">
         {/* Mode Switcher */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/60 pb-4">
           <div>
@@ -443,9 +461,9 @@ export const CatalogSearch: React.FC<CatalogSearchProps> = ({
       </div>
 
       {/* Main Results Layout: Sidebar Filters + Results Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Mobile Filter Toggle */}
-        <div className="lg:hidden flex items-center justify-between glass-panel p-3 rounded-xl">
+        <div className="lg:hidden flex items-center justify-between glass-panel p-3.5 rounded-xl">
           <button
             onClick={() => setShowMobileFilters(!showMobileFilters)}
             className="flex items-center gap-2 text-xs font-bold text-blue-950"
@@ -460,7 +478,7 @@ export const CatalogSearch: React.FC<CatalogSearchProps> = ({
         </div>
 
         {/* Sidebar Filters with Frosted Glass Panel */}
-        <aside className={`lg:block ${showMobileFilters ? 'block' : 'hidden'} space-y-5 glass-panel p-5 rounded-2xl`}>
+        <aside className={`lg:block ${showMobileFilters ? 'block' : 'hidden'} lg:col-span-3 space-y-6 glass-panel p-6 rounded-2xl`}>
           <div className="flex items-center justify-between pb-3 border-b border-slate-200/60">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-950 flex items-center gap-1.5">
               <SlidersHorizontal className="w-4 h-4 text-amber-500" />
@@ -604,18 +622,23 @@ export const CatalogSearch: React.FC<CatalogSearchProps> = ({
         </aside>
 
         {/* Search Results Main Column */}
-        <main className="lg:col-span-3 space-y-4">
+        <main className="lg:col-span-9 space-y-6">
           {/* Results Header Bar */}
-          <div className="glass-panel rounded-2xl px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-blue-950 text-sm">
+          <div className="glass-panel rounded-2xl px-6 py-4 flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="font-bold text-blue-950 text-base">
                 {filteredWorks.length}
               </span>
               <span className="text-slate-600">
                 scholarly works found
               </span>
+              {totalPages > 1 && (
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-blue-950 font-bold text-xs border border-amber-400/40">
+                  Page {safeCurrentPage} of {totalPages}
+                </span>
+              )}
               {basicQuery && (
-                <span className="px-2.5 py-0.5 rounded-full bg-blue-100/80 text-blue-900 font-semibold border border-blue-200/60">
+                <span className="px-3 py-1 rounded-full bg-blue-100/80 text-blue-900 font-semibold border border-blue-200/60">
                   Keyword: "{basicQuery}"
                 </span>
               )}
@@ -639,20 +662,86 @@ export const CatalogSearch: React.FC<CatalogSearchProps> = ({
 
           {/* Cards Listing */}
           {filteredWorks.length > 0 ? (
-            <div className="space-y-4">
-              {filteredWorks.map((work) => (
-                <ResourceCard
-                  key={work.id}
-                  work={work}
-                  onOpenDetails={onOpenDetails}
-                  onOpenReader={onOpenReader}
-                  onOpenCite={onOpenCite}
-                  onDownloadPDF={onDownloadPDF}
-                  isSaved={isSaved(work.id)}
-                  onToggleSave={onToggleSave}
-                />
-              ))}
-            </div>
+            <>
+              <div className="space-y-6">
+                {paginatedWorks.map((work) => (
+                  <ResourceCard
+                    key={work.id}
+                    work={work}
+                    onOpenDetails={onOpenDetails}
+                    onOpenReader={onOpenReader}
+                    onOpenCite={onOpenCite}
+                    onDownloadPDF={onDownloadPDF}
+                    isSaved={isSaved(work.id)}
+                    onToggleSave={onToggleSave}
+                  />
+                ))}
+              </div>
+
+              {/* Dynamic Pagination Bar (Adds new pages once cards exceed 5) */}
+              {totalPages > 1 && (
+                <nav
+                  aria-label="Scholarly cards pagination"
+                  className="glass-panel rounded-2xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 mt-6"
+                >
+                  <div className="text-xs sm:text-sm text-slate-600 font-medium">
+                    Showing <span className="font-bold text-slate-900">{startIndex + 1}</span>–<span className="font-bold text-slate-900">{endIndex}</span> of <span className="font-bold text-slate-900">{filteredWorks.length}</span> cards (5 per page)
+                  </div>
+
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentPage((prev) => Math.max(prev - 1, 1));
+                        window.scrollTo({ top: 240, behavior: 'smooth' });
+                      }}
+                      disabled={safeCurrentPage === 1}
+                      className="px-3.5 py-1.5 rounded-xl border border-slate-200/80 bg-white/70 text-xs font-semibold text-slate-700 hover:bg-white hover:text-blue-950 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 transition-all shadow-xs"
+                      aria-label="Previous page"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span className="hidden sm:inline">Previous</span>
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((pageNum) => (
+                        <button
+                          key={pageNum}
+                          type="button"
+                          onClick={() => {
+                            setCurrentPage(pageNum);
+                            window.scrollTo({ top: 240, behavior: 'smooth' });
+                          }}
+                          className={`w-8 h-8 rounded-xl text-xs font-bold transition-all ${
+                            safeCurrentPage === pageNum
+                              ? 'bg-blue-950 text-amber-300 shadow-sm ring-2 ring-amber-400/50'
+                              : 'text-slate-600 hover:bg-white/80 hover:text-blue-950 border border-transparent hover:border-slate-200'
+                          }`}
+                          aria-label={`Page ${pageNum}`}
+                          aria-current={safeCurrentPage === pageNum ? 'page' : undefined}
+                        >
+                          {pageNum}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                        window.scrollTo({ top: 240, behavior: 'smooth' });
+                      }}
+                      disabled={safeCurrentPage === totalPages}
+                      className="px-3.5 py-1.5 rounded-xl border border-slate-200/80 bg-white/70 text-xs font-semibold text-slate-700 hover:bg-white hover:text-blue-950 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 transition-all shadow-xs"
+                      aria-label="Next page"
+                    >
+                      <span className="hidden sm:inline">Next</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </nav>
+              )}
+            </>
           ) : (
             <div className="p-12 text-center glass-panel rounded-2xl space-y-3">
               <BookOpen className="w-12 h-12 text-slate-400 mx-auto" />

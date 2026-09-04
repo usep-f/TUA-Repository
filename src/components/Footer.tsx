@@ -7,9 +7,9 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateToTab }) => {
   return (
-    <footer className="glass-dark text-slate-300 border-t border-white/10 mt-12 relative overflow-hidden backdrop-blur-xl">
+    <footer className="glass-dark !bg-[#000415] text-slate-300 border-t border-white/10 mt-12 relative overflow-hidden backdrop-blur-xl">
       <div className="absolute top-0 right-1/4 -mt-24 w-96 h-96 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8 relative z-10">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 py-12 space-y-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Col 1: Institutional Brand */}
           <div className="space-y-3 md:col-span-2">
@@ -115,13 +115,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateToTab }) => {
           <p>
             © {new Date().getFullYear()} Trinity University of Asia College of Nursing. All Rights Reserved.
           </p>
-          <div className="flex items-center gap-4 text-slate-300">
-            <span className="flex items-center gap-1 text-amber-400 font-medium">
-              <ShieldCheck className="w-3.5 h-3.5" /> Follett Destiny Manager Compatible
-            </span>
-            <span>•</span>
-            <span>APA 7th Standardized</span>
-          </div>
         </div>
       </div>
     </footer>

@@ -78,10 +78,11 @@ export const CuratedCollections: React.FC<CuratedCollectionsProps> = ({
   };
 
   return (
-    <div className="space-y-8 pb-16">
-      {/* Header Banner with Frosted Glass Dark Canvas */}
-      <div className="glass-dark rounded-3xl p-6 sm:p-8 text-white border border-white/15 shadow-2xl space-y-3 relative overflow-hidden">
+    <div className="w-full max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 pt-6 pb-16 space-y-8 flex-1 relative">
+      {/* Header Banner with Deep Blue Canvas Matching Header Navbar */}
+      <div className="bg-[#000415] rounded-3xl p-6 sm:p-8 text-white border border-blue-900/60 shadow-2xl space-y-3 relative overflow-hidden">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-16 w-64 h-64 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold backdrop-blur-md">
           <Layers className="w-4 h-4 text-amber-400" />
           Recommended Curated Lists
@@ -95,7 +96,7 @@ export const CuratedCollections: React.FC<CuratedCollectionsProps> = ({
       </div>
 
       {/* Main Specialty Selector Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
         {REPOSITORY_CURATED_COLLECTIONS.map((col) => {
           const isSelected = col.id === selectedCollectionId;
           const Icon = getCollectionIcon(col.id);
@@ -106,34 +107,34 @@ export const CuratedCollections: React.FC<CuratedCollectionsProps> = ({
                 setSelectedCollectionId(col.id);
                 setSelectedSubCategory(null);
               }}
-              className={`p-5 rounded-2xl text-left transition-all border flex flex-col justify-between ${
+              className={`p-6 sm:p-7 rounded-2xl text-left transition-all border flex flex-col justify-between space-y-4 ${
                 isSelected
                   ? 'glass-dark text-white border-amber-400 shadow-xl ring-2 ring-amber-400/40'
                   : 'glass-panel text-slate-900 hover:border-amber-400/60'
               }`}
             >
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
                     isSelected ? 'bg-amber-400 text-blue-950 shadow-sm' : 'bg-blue-100/80 text-blue-900'
                   }`}>
                     {Icon}
                   </div>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
                     isSelected ? 'bg-white/10 text-amber-300 border border-white/20' : 'bg-slate-100 text-slate-600 border border-slate-200/60'
                   }`}>
                     {col.subcategories.length} Categories
                   </span>
                 </div>
-                <h3 className="text-base font-bold leading-tight">
+                <h3 className="text-base sm:text-lg font-bold leading-tight">
                   {col.name}
                 </h3>
-                <p className={`text-xs line-clamp-2 leading-relaxed ${isSelected ? 'text-slate-300' : 'text-slate-600'}`}>
+                <p className={`text-xs sm:text-sm line-clamp-2 leading-relaxed ${isSelected ? 'text-slate-300' : 'text-slate-600'}`}>
                   {col.description}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200/40 flex items-center justify-between text-xs font-semibold">
+              <div className="mt-4 pt-3.5 border-t border-slate-200/40 flex items-center justify-between text-xs sm:text-sm font-semibold">
                 <span className={isSelected ? 'text-amber-300 font-bold' : 'text-blue-900'}>
                   {isSelected ? 'Viewing Hub' : 'Select Hub'}
                 </span>
@@ -145,7 +146,7 @@ export const CuratedCollections: React.FC<CuratedCollectionsProps> = ({
       </div>
 
       {/* Sub-Specialty Breakdown Strip (Matching PDF Pages 4-5) */}
-      <div className="glass-panel rounded-2xl p-5 space-y-4">
+      <div className="glass-panel rounded-2xl p-6 sm:p-8 space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/60 pb-3">
           <div className="flex items-center gap-2">
             <FolderOpen className="w-5 h-5 text-amber-500" />
@@ -212,7 +213,7 @@ export const CuratedCollections: React.FC<CuratedCollectionsProps> = ({
         </div>
 
         {filteredCollectionWorks.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
             {filteredCollectionWorks.map((work) => (
               <ResourceCard
                 key={work.id}

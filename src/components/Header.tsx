@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-xl border-b border-amber-500/30 text-white shadow-xl w-full overflow-visible">
       {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 overflow-visible">
+      <div className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 overflow-visible bg-[#000415]">
         <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20 gap-1.5 sm:gap-3 overflow-visible">
           {/* Logo / Brand */}
           <button
@@ -75,9 +75,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <h1 className="text-xs sm:text-base md:text-lg lg:text-xl font-bold tracking-tight text-white group-hover:text-amber-300 transition-colors truncate">
                   TUA Nursing Repository
                 </h1>
-                <span className="hidden 2xl:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/40 backdrop-blur-xs shrink-0">
-                  SCHOLARLY ARCHIVE
-                </span>
               </div>
               <p className="hidden md:block text-[11px] lg:text-xs text-slate-300 font-medium truncate">
                 Student Case Presentations • Research • Community Projects

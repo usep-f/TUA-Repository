@@ -73,60 +73,61 @@ export const PhysicalCirculation: React.FC<PhysicalCirculationProps> = ({
   };
 
   return (
-    <div className="space-y-8 pb-16">
-      {/* Header Banner with Frosted Glass Dark Canvas */}
-      <div className="glass-dark rounded-3xl p-6 sm:p-8 text-white border border-white/15 shadow-2xl space-y-3 relative overflow-hidden">
+    <div className="w-full max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 pt-6 pb-16 space-y-8 flex-1 relative">
+      {/* Header Banner with Deep Blue Canvas Matching Header Navbar */}
+      <div className="bg-[#000415] rounded-3xl p-8 sm:p-10 lg:p-12 text-white border border-blue-900/60 shadow-2xl space-y-4 relative overflow-hidden">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold backdrop-blur-md">
+        <div className="absolute bottom-0 left-1/3 -mb-16 w-64 h-64 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold backdrop-blur-md">
           <Library className="w-4 h-4 text-amber-400" />
           Physical Library & Reserve Desk Management
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white">
           Health Sciences Library Physical Catalog (Follett Destiny Sync)
         </h1>
-        <p className="text-xs sm:text-sm text-slate-200 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm lg:text-base text-slate-200 max-w-3xl leading-relaxed">
           Locate bound print volumes, Grand Case Presentation binders, and clinical research manuscripts on the 2nd Floor Health Sciences Library. Reserve 2-hour reading room loans or access instant digitized scans.
         </p>
       </div>
 
       {/* Library Hours & Shelf Locator Strip */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-2xl glass-panel flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-900 flex items-center justify-center shrink-0">
-            <Building className="w-5 h-5" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="p-6 sm:p-7 rounded-2xl glass-panel flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-blue-100/80 text-blue-900 flex items-center justify-center shrink-0">
+            <Building className="w-6 h-6" />
           </div>
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Physical Location</h3>
-            <p className="text-sm font-bold text-blue-950">2nd Floor Health Sciences Wing</p>
-            <p className="text-[11px] text-slate-600">Sections N1 to N6 (Nursing Archive)</p>
+            <p className="text-sm sm:text-base font-bold text-blue-950">2nd Floor Health Sciences Wing</p>
+            <p className="text-xs text-slate-600">Sections N1 to N6 (Nursing Archive)</p>
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl glass-panel flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-100/80 text-amber-700 flex items-center justify-center shrink-0">
-            <Clock className="w-5 h-5" />
+        <div className="p-6 sm:p-7 rounded-2xl glass-panel flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-amber-100/80 text-amber-700 flex items-center justify-center shrink-0">
+            <Clock className="w-6 h-6" />
           </div>
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Reserve Desk Loan Policy</h3>
-            <p className="text-sm font-bold text-blue-950">2-Hour Reading Room Loans</p>
-            <p className="text-[11px] text-slate-600">Renewable if no pending batch requests</p>
+            <p className="text-sm sm:text-base font-bold text-blue-950">2-Hour Reading Room Loans</p>
+            <p className="text-xs text-slate-600">Renewable if no pending batch requests</p>
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl glass-panel flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-100/80 text-emerald-700 flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-5 h-5" />
+        <div className="p-6 sm:p-7 rounded-2xl glass-panel flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-emerald-100/80 text-emerald-700 flex items-center justify-center shrink-0">
+            <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Digital Archive Access</h3>
-            <p className="text-sm font-bold text-blue-950">100% Digitized & OCR Searchable</p>
-            <p className="text-[11px] text-slate-600">PDF download and online reader active</p>
+            <p className="text-sm sm:text-base font-bold text-blue-950">100% Digitized & OCR Searchable</p>
+            <p className="text-xs text-slate-600">PDF download and online reader active</p>
           </div>
         </div>
       </div>
 
       {/* Filter and Shelf Search */}
-      <div className="glass-panel rounded-2xl p-4 sm:p-6 space-y-4">
+      <div className="glass-panel rounded-2xl p-6 sm:p-8 space-y-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="relative w-full sm:max-w-md">
             <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />

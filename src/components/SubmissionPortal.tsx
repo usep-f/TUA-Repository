@@ -162,10 +162,11 @@ export const SubmissionPortal: React.FC<SubmissionPortalProps> = ({
   };
 
   return (
-    <div className="space-y-8 pb-16 max-w-4xl mx-auto">
-      {/* Header Banner with Frosted Glass Dark Canvas */}
-      <div className="glass-dark rounded-3xl p-6 sm:p-8 text-white border border-white/15 shadow-2xl space-y-3 relative overflow-hidden">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-16 space-y-8 flex-1 relative">
+      {/* Header Banner with Deep Blue Canvas Matching Header Navbar */}
+      <div className="bg-[#000415] rounded-3xl p-6 sm:p-8 text-white border border-blue-900/60 shadow-2xl space-y-3 relative overflow-hidden">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-amber-500/15 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/3 -mb-16 w-64 h-64 rounded-full bg-blue-500/15 blur-3xl pointer-events-none" />
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold backdrop-blur-md">
           <UploadCloud className="w-4 h-4 text-amber-400" />
           BSN Scholarly Intake Portal

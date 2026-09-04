@@ -174,7 +174,7 @@ ${generateCitation(work, 'APA_7')}
   const savedWorksList = works.filter((w) => savedWorkIds.includes(w.id));
 
   return (
-    <div className="min-h-screen flex flex-col bg-transparent text-slate-100 font-serif selection:bg-amber-400 selection:text-blue-950 relative overflow-x-hidden w-full max-w-full">
+    <>
       {/* Universal Header */}
       <Header
         activeTab={activeTab}
@@ -183,100 +183,95 @@ ${generateCitation(work, 'APA_7')}
         onQuickSearch={handleSearchKeywordFromAnywhere}
       />
 
-      {/* Main App Body */}
-      <main 
-        id="main-repository-content"
-        className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 relative"
-      >
-        {/* Subdued ambient lighting accents - slight blue & yellow hues on dominantly black canvas */}
-        <div 
-          aria-hidden="true" 
-          className="absolute -top-12 left-1/4 -translate-x-1/2 w-[32rem] h-[32rem] bg-blue-900/10 rounded-full blur-3xl pointer-events-none -z-10" 
+      {/* Ambient background lighting accents */}
+      <div 
+        aria-hidden="true" 
+        className="fixed -top-12 left-1/4 -translate-x-1/2 w-[34rem] h-[34rem] bg-amber-300/25 rounded-full blur-3xl pointer-events-none -z-10" 
+      />
+      <div 
+        aria-hidden="true" 
+        className="fixed top-28 right-12 w-[30rem] h-[30rem] bg-blue-900/12 rounded-full blur-3xl pointer-events-none -z-10" 
+      />
+      <div 
+        aria-hidden="true" 
+        className="fixed top-[45rem] left-10 w-[28rem] h-[28rem] bg-yellow-400/20 rounded-full blur-3xl pointer-events-none -z-10" 
+      />
+      <div 
+        aria-hidden="true" 
+        className="fixed top-[65rem] right-1/4 w-[28rem] h-[28rem] bg-blue-950/15 rounded-full blur-3xl pointer-events-none -z-10" 
+      />
+
+      {activeTab === 'home' && (
+        <HomeDashboard
+          works={works}
+          announcements={INITIAL_ANNOUNCEMENTS}
+          onOpenDetails={(w) => setDetailWork(w)}
+          onOpenReader={(w) => setReaderWork(w)}
+          onOpenCite={(w) => setCiteWork(w)}
+          onDownloadPDF={handleDownloadPDF}
+          isSaved={(id) => savedWorkIds.includes(id)}
+          onToggleSave={handleToggleSave}
+          onSearchKeyword={handleSearchKeywordFromAnywhere}
+          onSelectCategory={handleSelectCategoryFromAnywhere}
+          onNavigateToTab={setActiveTab}
         />
-        <div 
-          aria-hidden="true" 
-          className="absolute top-28 right-12 w-96 h-96 bg-amber-500/[0.05] rounded-full blur-3xl pointer-events-none -z-10" 
+      )}
+
+      {activeTab === 'catalog' && (
+        <CatalogSearch
+          works={works}
+          initialQuery={catalogQuery}
+          initialSpecialty={catalogSpecialty}
+          initialSubSpecialty={catalogSubSpecialty}
+          onOpenDetails={(w) => setDetailWork(w)}
+          onOpenReader={(w) => setReaderWork(w)}
+          onOpenCite={(w) => setCiteWork(w)}
+          onDownloadPDF={handleDownloadPDF}
+          isSaved={(id) => savedWorkIds.includes(id)}
+          onToggleSave={handleToggleSave}
         />
-        <div 
-          aria-hidden="true" 
-          className="absolute top-[45rem] left-10 w-80 h-80 bg-blue-950/20 rounded-full blur-3xl pointer-events-none -z-10" 
+      )}
+
+      {activeTab === 'collections' && (
+        <CuratedCollections
+          works={works}
+          onOpenDetails={(w) => setDetailWork(w)}
+          onOpenReader={(w) => setReaderWork(w)}
+          onOpenCite={(w) => setCiteWork(w)}
+          onDownloadPDF={handleDownloadPDF}
+          isSaved={(id) => savedWorkIds.includes(id)}
+          onToggleSave={handleToggleSave}
+          onNavigateToCatalogWithFilter={handleSelectCategoryFromAnywhere}
         />
-        <div 
-          aria-hidden="true" 
-          className="absolute top-[65rem] right-1/4 w-80 h-80 bg-amber-400/[0.03] rounded-full blur-3xl pointer-events-none -z-10" 
+      )}
+
+      {activeTab === 'circulation' && (
+        <PhysicalCirculation
+          works={works}
+          onOpenDetails={(w) => setDetailWork(w)}
+          onOpenReader={(w) => setReaderWork(w)}
         />
-        {activeTab === 'home' && (
-          <HomeDashboard
-            works={works}
-            announcements={INITIAL_ANNOUNCEMENTS}
-            onOpenDetails={(w) => setDetailWork(w)}
-            onOpenReader={(w) => setReaderWork(w)}
-            onOpenCite={(w) => setCiteWork(w)}
-            onDownloadPDF={handleDownloadPDF}
-            isSaved={(id) => savedWorkIds.includes(id)}
-            onToggleSave={handleToggleSave}
-            onSearchKeyword={handleSearchKeywordFromAnywhere}
-            onSelectCategory={handleSelectCategoryFromAnywhere}
-            onNavigateToTab={setActiveTab}
-          />
-        )}
+      )}
 
-        {activeTab === 'catalog' && (
-          <CatalogSearch
-            works={works}
-            initialQuery={catalogQuery}
-            initialSpecialty={catalogSpecialty}
-            initialSubSpecialty={catalogSubSpecialty}
-            onOpenDetails={(w) => setDetailWork(w)}
-            onOpenReader={(w) => setReaderWork(w)}
-            onOpenCite={(w) => setCiteWork(w)}
-            onDownloadPDF={handleDownloadPDF}
-            isSaved={(id) => savedWorkIds.includes(id)}
-            onToggleSave={handleToggleSave}
-          />
-        )}
+      {activeTab === 'submit' && (
+        <SubmissionPortal
+          onAddWork={handleAddWork}
+          onOpenDetails={(w) => setDetailWork(w)}
+        />
+      )}
 
-        {activeTab === 'collections' && (
-          <CuratedCollections
-            works={works}
-            onOpenDetails={(w) => setDetailWork(w)}
-            onOpenReader={(w) => setReaderWork(w)}
-            onOpenCite={(w) => setCiteWork(w)}
-            onDownloadPDF={handleDownloadPDF}
-            isSaved={(id) => savedWorkIds.includes(id)}
-            onToggleSave={handleToggleSave}
-            onNavigateToCatalogWithFilter={handleSelectCategoryFromAnywhere}
-          />
-        )}
-
-        {activeTab === 'circulation' && (
-          <PhysicalCirculation
-            works={works}
-            onOpenDetails={(w) => setDetailWork(w)}
-            onOpenReader={(w) => setReaderWork(w)}
-          />
-        )}
-
-        {activeTab === 'submit' && (
-          <SubmissionPortal
-            onAddWork={handleAddWork}
-            onOpenDetails={(w) => setDetailWork(w)}
-          />
-        )}
-
-        {activeTab === 'shelf' && (
-          <MyShelf
-            savedWorks={savedWorksList}
-            onOpenDetails={(w) => setDetailWork(w)}
-            onOpenReader={(w) => setReaderWork(w)}
-            onOpenCite={(w) => setCiteWork(w)}
-            onDownloadPDF={handleDownloadPDF}
-            onToggleSave={handleToggleSave}
-            onClearAllSaved={handleClearAllSaved}
-            onNavigateToCatalog={() => setActiveTab('catalog')}
-          />
-        )}
-      </main>
+      {activeTab === 'shelf' && (
+        <MyShelf
+          savedWorks={savedWorksList}
+          onOpenDetails={(w) => setDetailWork(w)}
+          onOpenReader={(w) => setReaderWork(w)}
+          onOpenCite={(w) => setCiteWork(w)}
+          onDownloadPDF={handleDownloadPDF}
+          onToggleSave={handleToggleSave}
+          onClearAllSaved={handleClearAllSaved}
+          onNavigateToCatalog={() => setActiveTab('catalog')}
+        />
+      )}
 
       {/* Global Modals */}
       <CitationModal
@@ -319,6 +314,6 @@ ${generateCitation(work, 'APA_7')}
 
       {/* Footer */}
       <Footer onNavigateToTab={setActiveTab} />
-    </div>
+    </>
   );
 }

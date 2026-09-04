@@ -10,17 +10,17 @@
 @layer base {
   html, body {
     font-family: 'Lora', 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
-    background-color: #000000;
+    background-color: #fbfbfa;
     background-image: 
-      radial-gradient(ellipse 900px 500px at 50% -40px, rgba(16, 44, 110, 0.22) 0%, transparent 70%),
-      radial-gradient(circle 600px at 90% 180px, rgba(202, 138, 4, 0.08) 0%, transparent 65%),
-      radial-gradient(circle 650px at 10% 420px, rgba(20, 38, 85, 0.18) 0%, transparent 65%),
-      radial-gradient(ellipse 700px 400px at 70% 750px, rgba(234, 179, 8, 0.05) 0%, transparent 60%),
-      linear-gradient(180deg, #000000 0%, #030408 20%, #060812 45%, #04060c 70%, #000000 100%);
+      radial-gradient(ellipse 1100px 650px at 15% -20px, rgba(254, 240, 138, 0.45) 0%, rgba(253, 224, 71, 0.18) 35%, transparent 70%),
+      radial-gradient(circle 800px at 88% 220px, rgba(15, 34, 85, 0.12) 0%, rgba(24, 49, 115, 0.05) 45%, transparent 65%),
+      radial-gradient(circle 750px at 8% 580px, rgba(250, 204, 21, 0.16) 0%, transparent 60%),
+      radial-gradient(ellipse 950px 600px at 85% 820px, rgba(14, 30, 80, 0.10) 0%, transparent 65%),
+      linear-gradient(180deg, #ffffff 0%, #fffef4 18%, #fbfbfc 45%, #f4f6fa 75%, #eef2f8 100%);
     background-size: 100% 100%;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    color: #f1f5f9;
+    color: #0f172a;
   }
 
   button, input, optgroup, select, textarea {
@@ -32,14 +32,15 @@
   }
 }
 
+
 .bg-dark-grid {
-  background-color: #000000;
+  background-color: #fbfbfa;
   background-image: 
-    radial-gradient(ellipse 900px 500px at 50% -40px, rgba(16, 44, 110, 0.22) 0%, transparent 70%),
-    radial-gradient(circle 600px at 90% 180px, rgba(202, 138, 4, 0.08) 0%, transparent 65%),
-    radial-gradient(circle 650px at 10% 420px, rgba(20, 38, 85, 0.18) 0%, transparent 65%),
-    radial-gradient(ellipse 700px 400px at 70% 750px, rgba(234, 179, 8, 0.05) 0%, transparent 60%),
-    linear-gradient(180deg, #000000 0%, #030408 20%, #060812 45%, #04060c 70%, #000000 100%);
+    radial-gradient(ellipse 1100px 650px at 15% -20px, rgba(254, 240, 138, 0.45) 0%, rgba(253, 224, 71, 0.18) 35%, transparent 70%),
+    radial-gradient(circle 800px at 88% 220px, rgba(15, 34, 85, 0.12) 0%, rgba(24, 49, 115, 0.05) 45%, transparent 65%),
+    radial-gradient(circle 750px at 8% 580px, rgba(250, 204, 21, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 950px 600px at 85% 820px, rgba(14, 30, 80, 0.10) 0%, transparent 65%),
+    linear-gradient(180deg, #ffffff 0%, #fffef4 18%, #fbfbfc 45%, #f4f6fa 75%, #eef2f8 100%);
   background-size: 100% 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
