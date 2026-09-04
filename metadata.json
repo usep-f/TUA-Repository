@@ -1,0 +1,8 @@
+{
+  "name": "Remix TUA Nursing Scholarly Repository \u0026 Library System",
+  "description": "A digital and physical library management system and searchable scholarly repository for nursing student case presentations, research, and clinical projects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
